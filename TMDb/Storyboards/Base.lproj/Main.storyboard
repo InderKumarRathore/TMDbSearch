@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,25 +14,70 @@
         <!--Search Movies-->
         <scene sceneID="ZKm-Rv-HSS">
             <objects>
-                <viewController id="hvX-n9-9cC" sceneMemberID="viewController">
+                <viewController id="hvX-n9-9cC" customClass="SearchViewController" customModule="TMDb" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t6L-ok-rVq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search kittens" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Ym-jFg">
+                            <searchBar contentMode="redraw" placeholder="e.g. Batman" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Ym-jFg">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="hvX-n9-9cC" id="JKn-B0-14A"/>
+                                </connections>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Auj-fM-MPL">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" id="qdB-iE-zU0" customClass="SearchCell" customModule="TMDb" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qdB-iE-zU0" id="FMb-eA-bxs">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTE-ec-NQb">
+                                                    <rect key="frame" x="15" y="12" width="345" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FTE-ec-NQb" firstAttribute="centerY" secondItem="FMb-eA-bxs" secondAttribute="centerY" id="JeC-pF-PO2"/>
+                                                <constraint firstItem="FTE-ec-NQb" firstAttribute="leading" secondItem="FMb-eA-bxs" secondAttribute="leadingMargin" id="buH-K4-aRa"/>
+                                                <constraint firstItem="FTE-ec-NQb" firstAttribute="centerY" secondItem="FMb-eA-bxs" secondAttribute="centerY" id="gs4-i3-J24"/>
+                                                <constraint firstItem="FTE-ec-NQb" firstAttribute="trailing" secondItem="FMb-eA-bxs" secondAttribute="trailingMargin" id="lJK-wr-hk2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="FTE-ec-NQb" id="Omn-ic-sGE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hvX-n9-9cC" id="R24-7v-y5g"/>
+                                    <outlet property="delegate" destination="hvX-n9-9cC" id="Ysb-20-JN9"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Auj-fM-MPL" firstAttribute="top" secondItem="H1f-Ym-jFg" secondAttribute="bottom" id="22q-58-6QO"/>
                             <constraint firstItem="H1f-Ym-jFg" firstAttribute="top" secondItem="YEt-Tm-3HP" secondAttribute="top" id="JIS-hp-DIS"/>
+                            <constraint firstItem="Auj-fM-MPL" firstAttribute="bottom" secondItem="YEt-Tm-3HP" secondAttribute="bottom" id="j6E-EA-Sjj"/>
+                            <constraint firstItem="Auj-fM-MPL" firstAttribute="leading" secondItem="YEt-Tm-3HP" secondAttribute="leading" id="o1A-Hg-MB0"/>
                             <constraint firstItem="H1f-Ym-jFg" firstAttribute="trailing" secondItem="YEt-Tm-3HP" secondAttribute="trailing" id="qtO-i0-hXx"/>
+                            <constraint firstItem="Auj-fM-MPL" firstAttribute="trailing" secondItem="YEt-Tm-3HP" secondAttribute="trailing" id="v0h-hh-ckN"/>
                             <constraint firstItem="H1f-Ym-jFg" firstAttribute="leading" secondItem="YEt-Tm-3HP" secondAttribute="leading" id="wYj-gM-okL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YEt-Tm-3HP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Search Movies" id="zlp-wc-h9G"/>
+                    <connections>
+                        <outlet property="tableView" destination="Auj-fM-MPL" id="x03-hN-Mml"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yyl-EV-Aml" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

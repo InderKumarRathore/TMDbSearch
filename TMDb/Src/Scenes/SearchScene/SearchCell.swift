@@ -8,5 +8,8 @@
 
 import UIKit
 
-class SearchCell: UICollectionViewCell {
+class SearchCell: UITableViewCell {
+  @IBOutlet weak var titleLabel: UILabel!
+  
+
 }

@@ -14,6 +14,7 @@ protocol SearchDisplayLogic: class {
 }
 
 class SearchViewController: UIViewController {
+  @IBOutlet weak var tableView: UITableView!
   
   // Clean Architecture references
   var interactor: SearchBusinessLogic!
@@ -63,3 +64,21 @@ extension SearchViewController: UISearchBarDelegate {
     searchBar.resignFirstResponder()
   }
 }
+
+
+// MARK:-
+extension SearchViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 15
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let searchCell = tableView.dequeueReusableCell(withIdentifier: "SearchCell") as! SearchCell
+    searchCell.titleLabel.text = "sea \(indexPath.row)"
+    return searchCell
+  }
+}
+
+
+
+
