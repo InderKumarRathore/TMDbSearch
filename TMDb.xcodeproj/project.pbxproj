@@ -16,6 +16,7 @@
 		91A01FE9213863500079A1E5 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A01FE8213863500079A1E5 /* SearchCell.swift */; };
 		91B28D53213A5C0E0097B456 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B28D52213A5C0E0097B456 /* SearchInteractor.swift */; };
 		91B28D55213A62390097B456 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B28D54213A62390097B456 /* SearchPresenter.swift */; };
+		91EE89A721423E5400C4332E /* AutoSuggestionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE89A621423E5400C4332E /* AutoSuggestionStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		91A01FE8213863500079A1E5 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		91B28D52213A5C0E0097B456 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		91B28D54213A62390097B456 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		91EE89A621423E5400C4332E /* AutoSuggestionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoSuggestionStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				91A01FE52138417A0079A1E5 /* AppDelegate */,
+				91EE89A421423E5400C4332E /* DataStore */,
 				91A01FE62138418A0079A1E5 /* Scenes */,
 			);
 			path = Src;
@@ -175,6 +178,22 @@
 				91A01FE8213863500079A1E5 /* SearchCell.swift */,
 			);
 			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		91EE89A421423E5400C4332E /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				91EE89A521423E5400C4332E /* AutoSuggestionStore */,
+			);
+			path = DataStore;
+			sourceTree = "<group>";
+		};
+		91EE89A521423E5400C4332E /* AutoSuggestionStore */ = {
+			isa = PBXGroup;
+			children = (
+				91EE89A621423E5400C4332E /* AutoSuggestionStore.swift */,
+			);
+			path = AutoSuggestionStore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +302,7 @@
 				91A01FE9213863500079A1E5 /* SearchCell.swift in Sources */,
 				91B28D55213A62390097B456 /* SearchPresenter.swift in Sources */,
 				91A01FC32138332E0079A1E5 /* SearchViewController.swift in Sources */,
+				91EE89A721423E5400C4332E /* AutoSuggestionStore.swift in Sources */,
 				91A01FC12138332E0079A1E5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
