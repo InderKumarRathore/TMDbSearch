@@ -11,10 +11,18 @@ import UIKit
 
 // Class only protocol, b'coz SearchVC needs to be weak in presenter
 protocol SearchDisplayLogic: class {
+  
+  /// Show the list of previously searched movies
+  ///
+  /// - Parameter array: Array of strings
+  func showSearchedItems(array: [String])
 }
 
 class SearchViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
+  
+  // List holding the previous search movies
+  var previousSearchedMovies = [String]()
   
   // Clean Architecture references
   var interactor: SearchBusinessLogic!
@@ -61,14 +69,37 @@ class SearchViewController: UIViewController {
 
 // MARK:- SearchDisplayLogic
 extension SearchViewController: SearchDisplayLogic {
+  func showSearchedItems(array: [String]) {
+    self.previousSearchedMovies = array
+    self.tableView.reloadData()
+  }
+  
 }
 
 
 // MARK:- UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
+  // Search bar has gained the focus
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    print("Editing called")
+    self.interactor.getPreviousSearchList(text: searchBar.text)
+  }
+  
+  // Search bar text did changed
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    print("Did chagne text:\(searchText)")
+    self.interactor.getPreviousSearchList(text: searchBar.text)
+  }
+  
+  
   // Search tapped on keyboard
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    searchBar.resignFirstResponder()
+    // Tell the interactor to search the list
+    // TODO: Saving search here
+    if searchBar.text != nil && !searchBar.text!.isEmpty {
+      self.interactor.saveSearch(text: searchBar.text!)
+    }
+    
   }
   
   // Cancel tapped
@@ -81,12 +112,12 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK:-
 extension SearchViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 15
+    return self.previousSearchedMovies.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let searchCell = tableView.dequeueReusableCell(withIdentifier: "SearchCell") as! SearchCell
-    searchCell.titleLabel.text = "sea \(indexPath.row)"
+    searchCell.titleLabel.text = self.previousSearchedMovies[indexPath.row]
     return searchCell
   }
 }
