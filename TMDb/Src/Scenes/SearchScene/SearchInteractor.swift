@@ -14,7 +14,7 @@ protocol SearchBusinessLogic {
   /// Gets the previous searched texts based on  searched text
   ///
   /// - Parameter text: text to be matched, if nil then returns all the text
-  func getPreviousSearchList(text: String?)
+  func fetchPreviousSearchList(text: String?)
   
   
   func saveSearch(text: String)
@@ -49,16 +49,16 @@ extension SearchInteractor: SearchBusinessLogic {
     self.autoSuggestionStore.saveSearch(text: text)
   }
   
-  func getPreviousSearchList(text: String?) {
+  func fetchPreviousSearchList(text: String?) {
     // Get the auto suggested list and max limit is 10 objects
-    var array = self.autoSuggestionStore.getSearchList(text: text, count: 10)
-    if text == nil {
-      // Show the full list it in reverse order (i.e. latest search on the top)
-      array.reverse()
-    }
-    else {
+    var array = self.autoSuggestionStore.getSearchList(text: text)
+    if text != nil && !(text!.isEmpty) {
       // Show the filtered list it in sorted order
       array.sort()
+    }
+    else {
+      // Show the full list it in reverse order (i.e. latest search on the top)
+      array.reverse()
     }
     self.presenter?.presentFetchedSearchItems(array: array)
   }

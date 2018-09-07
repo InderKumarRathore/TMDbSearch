@@ -82,19 +82,24 @@ extension SearchViewController: UISearchBarDelegate {
   // Search bar has gained the focus
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
     print("Editing called")
-    self.interactor.getPreviousSearchList(text: searchBar.text)
+    self.interactor.fetchPreviousSearchList(text: searchBar.text)
   }
   
   // Search bar text did changed
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     print("Did chagne text:\(searchText)")
-    self.interactor.getPreviousSearchList(text: searchBar.text)
+    self.interactor.fetchPreviousSearchList(text: searchBar.text)
   }
   
   
   // Search tapped on keyboard
-  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    // Tell the interactor to search the list
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {    
+    if let searchStr = searchBar.text {
+      performSegue(withIdentifier: "MovieListViewControllerSegue", sender: searchStr)
+    }
+    
+    
+    
     // TODO: Saving search here
     if searchBar.text != nil && !searchBar.text!.isEmpty {
       self.interactor.saveSearch(text: searchBar.text!)

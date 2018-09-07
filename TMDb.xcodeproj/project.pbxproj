@@ -17,6 +17,8 @@
 		91B28D53213A5C0E0097B456 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B28D52213A5C0E0097B456 /* SearchInteractor.swift */; };
 		91B28D55213A62390097B456 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B28D54213A62390097B456 /* SearchPresenter.swift */; };
 		91EE89A721423E5400C4332E /* AutoSuggestionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE89A621423E5400C4332E /* AutoSuggestionStore.swift */; };
+		91EE89AA214265A900C4332E /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE89A9214265A900C4332E /* MovieListViewController.swift */; };
+		91EE89AE214268AA00C4332E /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE89AD214268AA00C4332E /* MovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		91B28D52213A5C0E0097B456 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		91B28D54213A62390097B456 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		91EE89A621423E5400C4332E /* AutoSuggestionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoSuggestionStore.swift; sourceTree = "<group>"; };
+		91EE89A9214265A900C4332E /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
+		91EE89AD214268AA00C4332E /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,7 @@
 		91A01FE62138418A0079A1E5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				91EE89A82142658900C4332E /* MovieListScene */,
 				91A01FE7213841920079A1E5 /* SearchScene */,
 			);
 			path = Scenes;
@@ -194,6 +199,15 @@
 				91EE89A621423E5400C4332E /* AutoSuggestionStore.swift */,
 			);
 			path = AutoSuggestionStore;
+			sourceTree = "<group>";
+		};
+		91EE89A82142658900C4332E /* MovieListScene */ = {
+			isa = PBXGroup;
+			children = (
+				91EE89A9214265A900C4332E /* MovieListViewController.swift */,
+				91EE89AD214268AA00C4332E /* MovieCell.swift */,
+			);
+			path = MovieListScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,9 +313,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				91B28D53213A5C0E0097B456 /* SearchInteractor.swift in Sources */,
+				91EE89AE214268AA00C4332E /* MovieCell.swift in Sources */,
 				91A01FE9213863500079A1E5 /* SearchCell.swift in Sources */,
 				91B28D55213A62390097B456 /* SearchPresenter.swift in Sources */,
 				91A01FC32138332E0079A1E5 /* SearchViewController.swift in Sources */,
+				91EE89AA214265A900C4332E /* MovieListViewController.swift in Sources */,
 				91EE89A721423E5400C4332E /* AutoSuggestionStore.swift in Sources */,
 				91A01FC12138332E0079A1E5 /* AppDelegate.swift in Sources */,
 			);

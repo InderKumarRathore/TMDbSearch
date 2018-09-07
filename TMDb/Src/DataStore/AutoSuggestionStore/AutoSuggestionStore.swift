@@ -14,9 +14,8 @@ protocol AutoSuggestionStoreProtocol {
   ///
   /// - Parameters:
   ///   - text: text to be matched, if nil then retuns the last searched items
-  ///   - count: number of items to be returned
   /// - Returns: returns the auto suggested list
-  func getSearchList(text: String?, count: Int) -> [String]
+  func getSearchList(text: String?) -> [String]
   
   
   /// Saves the search item
@@ -30,11 +29,11 @@ protocol AutoSuggestionStoreProtocol {
 class AutoSuggestionStore: AutoSuggestionStoreProtocol {
   private let key = "AutoSuggestionStoreKey"
   // MARK:- AutoSuggestionStoreProtocol
-  func getSearchList(text: String?, count: Int) -> [String] {
+  func getSearchList(text: String?) -> [String] {
     if let array = UserDefaults.standard.object(forKey: key) as? [String] {
-      if let searchStr = text {
+      if text != nil && !(text!.isEmpty) {
         // Filter the string having prefix as search string
-        return array.filter{ $0.lowercased().hasPrefix(searchStr.lowercased()) }
+        return array.filter{ $0.lowercased().hasPrefix(text!.lowercased()) }
       }
       else {
         return array
