@@ -11,10 +11,19 @@ import UIKit
 class MovieListViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
+  // Movie List
+  var movieArray = [MovieViewModel]()
+  
+  // Current page, default is 1
+  var currentPage = 1
+  
+  // Total pages, default is max
+  var totalPages = Int.max
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.rowHeight = UITableViewAutomaticDimension
-    self.tableView.estimatedRowHeight = 130
+    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension
   }
   
   override func didReceiveMemoryWarning() {
@@ -31,38 +40,20 @@ extension MovieListViewController: UITableViewDelegate {
 // MARK:- UITableView
 extension MovieListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 12
+    return movieArray.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
-    cell.movieTitleLabel.text = "Title \(indexPath.row)"
-    cell.movieReleaseDateLabel.text = "09/09/2018"
-    var desc = ""
-    if indexPath.row % 2 == 0 {
-      desc = "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the clownishly homicidal Joker."
-    }
-    else {
-      let rand = arc4random() % 20
-      
-      for _ in 0..<rand {
-        desc += "Lorem ipsum dolor sit amet. "
-      }
-      
-      desc += "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the clownishly homicidal Joker."
-    }
-    
-    if indexPath.row == 6 {
-      desc = "One liner text"
-    }
-    cell.movieDescLabel.text = desc
-    
+    // Get the movie object
+    let movie = self.movieArray[indexPath.row]
+    cell.movieTitleLabel.text = movie.title
+    cell.movieReleaseDateLabel.text = movie.releaseDate
+    cell.movieOverviewLabel.text = movie.overview
     return cell
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableViewAutomaticDimension
   }
-  
-  
 }

@@ -16,8 +16,10 @@ protocol SearchBusinessLogic {
   /// - Parameter text: text to be matched, if nil then returns all the text
   func fetchPreviousSearchList(text: String?)
   
-  
-  func saveSearch(text: String)
+  /// Searches the movie on tmdb
+  ///
+  /// - Parameter text: movie to be searched
+  func searchMovies(text: String)
 }
 
 
@@ -44,11 +46,6 @@ class SearchInteractor {
 
 // MARK:- SearchBusinessLogic
 extension SearchInteractor: SearchBusinessLogic {
-  // TODO: Remove
-  func saveSearch(text: String) {
-    self.autoSuggestionStore.saveSearch(text: text)
-  }
-  
   func fetchPreviousSearchList(text: String?) {
     // Get the auto suggested list and max limit is 10 objects
     var array = self.autoSuggestionStore.getSearchList(text: text)
@@ -61,6 +58,28 @@ extension SearchInteractor: SearchBusinessLogic {
       array.reverse()
     }
     self.presenter?.presentFetchedSearchItems(array: array)
+  }
+  
+  func searchMovies(text: String) {
+    // Tell the presenter to show the loader
+    self.presenter?.presentLoader()
+    // Create the search api
+    let searchApi = MovieSearchApi()
+    searchApi.fetchMovies(searchText: text, pageNumber: 1,
+                          success: { (movies, currentPage, totalPages) in
+                            // Api success
+                            // Tell the presenter to hide the loader
+                            self.presenter?.hideLoader()
+                            // Save the search text
+                            self.autoSuggestionStore.saveSearch(text: text)
+                            // Tell the presenter to show the movie list vc
+                            self.presenter?.presentMovies(movies: movies, currentPage: currentPage, totalPages: totalPages)
+    }) { (statusCode, error) in
+      // Tell the presenter to hide the loader
+      self.presenter?.hideLoader()
+      // Tell the presenter to show the error
+      self.presenter?.presentError(statusCode: statusCode, error: error)
+    }
   }
 }
 

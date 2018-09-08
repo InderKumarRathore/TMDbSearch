@@ -12,7 +12,7 @@ class MovieCell: UITableViewCell {
   @IBOutlet weak var moviePosterImageView: UIImageView!
   @IBOutlet weak var movieTitleLabel: UILabel!
   @IBOutlet weak var movieReleaseDateLabel: UILabel!
-  @IBOutlet weak var movieDescLabel: UILabel!
+  @IBOutlet weak var movieOverviewLabel: UILabel!
   
   override func prepareForReuse() {
     self.moviePosterImageView.image = #imageLiteral(resourceName: "placeholder-image")

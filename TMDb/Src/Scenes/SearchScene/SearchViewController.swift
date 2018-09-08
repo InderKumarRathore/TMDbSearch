@@ -16,16 +16,37 @@ protocol SearchDisplayLogic: class {
   ///
   /// - Parameter array: Array of strings
   func showSearchedItems(array: [String])
+  
+  /// Shows the list of movies
+  ///
+  /// - Parameters:
+  ///   - movieResult: movie result object
+  func showMovieList(movieResult: MovieResult)
+  
+  /// Show the error msg
+  ///
+  /// - Parameter msg: message string
+  func showError(msg: String)
+  
+  /// Show the loader
+  func showLoader()
+  
+  /// Hides the loader
+  func hideLoader()
 }
 
 class SearchViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   // List holding the previous search movies
   var previousSearchedMovies = [String]()
   
   // Clean Architecture references
   var interactor: SearchBusinessLogic!
+  
+  // Segue identifier
+  private let movieListViewControllerSegue = "MovieListViewControllerSegue"
   
   // MARK: Object lifecycle
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -65,6 +86,18 @@ class SearchViewController: UIViewController {
     // Register keyboard notifications
     deregisterForKeyboardNotifications()
   }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == self.movieListViewControllerSegue {
+      if let movieResult = sender as? MovieResult {
+        if let mvc = segue.destination as? MovieListViewController {
+          mvc.movieArray = movieResult.movies
+          mvc.currentPage = movieResult.currentPage
+          mvc.totalPages = movieResult.totalPages
+        }
+      }
+    }
+  }
 }
 
 // MARK:- SearchDisplayLogic
@@ -74,6 +107,25 @@ extension SearchViewController: SearchDisplayLogic {
     self.tableView.reloadData()
   }
   
+  func showMovieList(movieResult: MovieResult) {
+    performSegue(withIdentifier: self.movieListViewControllerSegue, sender: movieResult)
+  }
+  
+  func showError(msg: String) {
+    // Show the alert
+    let alert = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alert.addAction(action)
+    self.present(alert, animated: true, completion: nil)
+  }
+  
+  func showLoader() {
+    self.activityIndicator.startAnimating()
+  }
+  
+  func hideLoader() {
+    self.activityIndicator.stopAnimating()
+  }
 }
 
 
@@ -95,16 +147,9 @@ extension SearchViewController: UISearchBarDelegate {
   // Search tapped on keyboard
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {    
     if let searchStr = searchBar.text {
-      performSegue(withIdentifier: "MovieListViewControllerSegue", sender: searchStr)
+      // Tell the interactor to search movies
+      self.interactor.searchMovies(text: searchStr)
     }
-    
-    
-    
-    // TODO: Saving search here
-    if searchBar.text != nil && !searchBar.text!.isEmpty {
-      self.interactor.saveSearch(text: searchBar.text!)
-    }
-    
   }
   
   // Cancel tapped
@@ -114,7 +159,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 
-// MARK:-
+// MARK:- UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.previousSearchedMovies.count
