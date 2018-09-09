@@ -19,6 +19,9 @@ class MovieListViewController: UIViewController {
   
   // Total pages, default is max
   var totalPages = Int.max
+
+  /// Image fetcher to fetch the images asyncronously
+  let imageFetcher = ImageFetcher(concurrentOperations: 3, cacheImageCount: 50)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -50,6 +53,27 @@ extension MovieListViewController: UITableViewDataSource {
     cell.movieTitleLabel.text = movie.title
     cell.movieReleaseDateLabel.text = movie.releaseDate
     cell.movieOverviewLabel.text = movie.overview
+    
+    /* Get the poster image for this movie */
+    // Set the tag to compare in the completion handler
+    cell.tag = indexPath.row
+    // Get the width
+    let width = cell.moviePosterImageView.frame.size.width * UIScreen.main.scale
+    // Get the directory where images need to be saved/searched
+    let dirPath = NSTemporaryDirectory()
+    if let serverUrl = movie.getPosterUrl(width: width), let diskUrl = movie.getDiskUrl(width: width, dirPath: dirPath) {
+      // Create the image info
+      let imageInfo = ImageInfo(id: movie.posterLastPathComponent, serverUrl: serverUrl, diskUrl: diskUrl)
+      self.imageFetcher.getImageFor(imageInfo: imageInfo, width: width, priority: .high, index: indexPath.row) { (image) in
+        DispatchQueue.main.async {
+          //Check if the cell is the same cell that requested this image
+          if cell.tag == indexPath.row {
+            cell.moviePosterImageView.image = image
+          }
+        }
+      }
+    }
+    
     return cell
   }
   

@@ -11,6 +11,8 @@
 		9142A058214392D0002BA20C /* MovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9142A057214392D0002BA20C /* MovieListInteractor.swift */; };
 		9142A05A2143941B002BA20C /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9142A0592143941B002BA20C /* MovieListPresenter.swift */; };
 		9142A05D214395D1002BA20C /* MovieSearchApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9142A05C214395D1002BA20C /* MovieSearchApi.swift */; };
+		91894D752144EED700C6BE44 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91894D742144EED700C6BE44 /* ImageFetcher.swift */; };
+		91894D792144EF0800C6BE44 /* ImageDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91894D782144EF0800C6BE44 /* ImageDownloadOperation.swift */; };
 		91A01FC12138332E0079A1E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A01FC02138332E0079A1E5 /* AppDelegate.swift */; };
 		91A01FC32138332E0079A1E5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A01FC22138332E0079A1E5 /* SearchViewController.swift */; };
 		91A01FC62138332E0079A1E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A01FC42138332E0079A1E5 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		9142A057214392D0002BA20C /* MovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractor.swift; sourceTree = "<group>"; };
 		9142A0592143941B002BA20C /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
 		9142A05C214395D1002BA20C /* MovieSearchApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchApi.swift; sourceTree = "<group>"; };
+		91894D742144EED700C6BE44 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		91894D782144EF0800C6BE44 /* ImageDownloadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloadOperation.swift; sourceTree = "<group>"; };
 		91A01FBD2138332E0079A1E5 /* TMDb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A01FC02138332E0079A1E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91A01FC22138332E0079A1E5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,30 @@
 			path = MovieSearchStore;
 			sourceTree = "<group>";
 		};
+		91894D732144EED700C6BE44 /* ImageStore */ = {
+			isa = PBXGroup;
+			children = (
+				91894D742144EED700C6BE44 /* ImageFetcher.swift */,
+			);
+			path = ImageStore;
+			sourceTree = "<group>";
+		};
+		91894D762144EF0800C6BE44 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				91894D772144EF0800C6BE44 /* ImageDownloader */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		91894D772144EF0800C6BE44 /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				91894D782144EF0800C6BE44 /* ImageDownloadOperation.swift */,
+			);
+			path = ImageDownloader;
+			sourceTree = "<group>";
+		};
 		91A01FB42138332E0079A1E5 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +171,7 @@
 			children = (
 				91A01FE52138417A0079A1E5 /* AppDelegate */,
 				91EE89A421423E5400C4332E /* DataStore */,
+				91894D762144EF0800C6BE44 /* Networking */,
 				91A01FE62138418A0079A1E5 /* Scenes */,
 			);
 			path = Src;
@@ -205,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				91EE89A521423E5400C4332E /* AutoSuggestionStore */,
+				91894D732144EED700C6BE44 /* ImageStore */,
 				9142A05B2143954E002BA20C /* MovieSearchStore */,
 			);
 			path = DataStore;
@@ -337,8 +367,10 @@
 				9142A058214392D0002BA20C /* MovieListInteractor.swift in Sources */,
 				91EE89AE214268AA00C4332E /* MovieCell.swift in Sources */,
 				91A01FE9213863500079A1E5 /* SearchCell.swift in Sources */,
+				91894D792144EF0800C6BE44 /* ImageDownloadOperation.swift in Sources */,
 				91B28D55213A62390097B456 /* SearchPresenter.swift in Sources */,
 				91A01FC32138332E0079A1E5 /* SearchViewController.swift in Sources */,
+				91894D752144EED700C6BE44 /* ImageFetcher.swift in Sources */,
 				91EE89AA214265A900C4332E /* MovieListViewController.swift in Sources */,
 				9142A05D214395D1002BA20C /* MovieSearchApi.swift in Sources */,
 				91EE89A721423E5400C4332E /* AutoSuggestionStore.swift in Sources */,
