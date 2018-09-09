@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		910AAD2C213C1ADD00E5A3B9 /* GalleryViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910AAD2B213C1ADD00E5A3B9 /* GalleryViewControllerTests.swift */; };
 		9142A058214392D0002BA20C /* MovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9142A057214392D0002BA20C /* MovieListInteractor.swift */; };
 		9142A05A2143941B002BA20C /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9142A0592143941B002BA20C /* MovieListPresenter.swift */; };
 		9142A05D214395D1002BA20C /* MovieSearchApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9142A05C214395D1002BA20C /* MovieSearchApi.swift */; };
@@ -39,7 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		910AAD2B213C1ADD00E5A3B9 /* GalleryViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewControllerTests.swift; sourceTree = "<group>"; };
 		9142A057214392D0002BA20C /* MovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractor.swift; sourceTree = "<group>"; };
 		9142A0592143941B002BA20C /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
 		9142A05C214395D1002BA20C /* MovieSearchApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchApi.swift; sourceTree = "<group>"; };
@@ -85,17 +83,16 @@
 		910AAD29213C1A8E00E5A3B9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				910AAD2A213C1A9600E5A3B9 /* GalleryScene */,
+				910AAD2A213C1A9600E5A3B9 /* MovieListScene */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		910AAD2A213C1A9600E5A3B9 /* GalleryScene */ = {
+		910AAD2A213C1A9600E5A3B9 /* MovieListScene */ = {
 			isa = PBXGroup;
 			children = (
-				910AAD2B213C1ADD00E5A3B9 /* GalleryViewControllerTests.swift */,
 			);
-			path = GalleryScene;
+			path = MovieListScene;
 			sourceTree = "<group>";
 		};
 		9142A05B2143954E002BA20C /* MovieSearchStore */ = {
@@ -387,7 +384,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				910AAD2C213C1ADD00E5A3B9 /* GalleryViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
