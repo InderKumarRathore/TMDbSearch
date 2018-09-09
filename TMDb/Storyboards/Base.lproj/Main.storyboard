@@ -95,7 +95,7 @@
         <!--Movie List View Controller-->
         <scene sceneID="pfZ-Me-reX">
             <objects>
-                <viewController id="yzV-H6-lNn" customClass="MovieListViewController" customModule="TMDb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieListViewController" id="yzV-H6-lNn" customClass="MovieListViewController" customModule="TMDb" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWD-QV-ITi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -24,15 +24,28 @@ class MovieListInteractor {
   
   /// Current search text
   var searchText = ""
+  
+  // Search API
+  private var searchStore: SearchStorProtocol!
+  
+  init() {
+    self.searchStore = MovieSearchApi()
+  }
+  
+  /// Dependency injection intilizer for different store
+  ///
+  /// - Parameter searchStore: search store
+  init(searchStore: SearchStorProtocol) {
+    self.searchStore = searchStore
+  }
 }
 
 // MARK:- MovieListBusinessLogic
 extension MovieListInteractor: MovieListBusinessLogic {
   func fetchNextPage() {
-    let searchApi = MovieSearchApi()
     // View wants to load new page
     self.currentPage += 1
-    searchApi.fetchMovies(searchText: searchText, pageNumber: self.currentPage, success: { [weak self] (movieArray, currentPage, totalPages) in
+    searchStore.fetchMovies(searchText: searchText, pageNumber: self.currentPage, success: { [weak self] (movieArray, currentPage, totalPages) in
       self?.currentPage = currentPage
       let canLoadNewPages = currentPage < totalPages
       

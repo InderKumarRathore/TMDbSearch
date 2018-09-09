@@ -8,10 +8,23 @@
 
 import Foundation
 
-class MovieSearchApi {
+protocol SearchStorProtocol {
   typealias SuccessClosure = ([MovieServiceObject], _ currentPage:Int, _ totalPages: Int) -> Void
   typealias FailureClosure = (_ statusCode: Int, _ error: Error?) -> Void
   
+  /// Fetches the data
+  ///
+  /// - Parameters:
+  ///   - pageNumber: page number starts from 1
+  ///   - searchText: text that has been queried for
+  ///   - success: success call  back
+  ///   - failed: failiure call back
+  func fetchMovies(searchText: String, pageNumber: Int,
+                   success:@escaping SuccessClosure,
+                   failed:@escaping FailureClosure)
+}
+
+class MovieSearchApi: SearchStorProtocol {
   /// Fetches the data from the tmdb API.
   /// Fixme: Hardcoing the key here.
   /// We can put the key at some other places, but lets finish the taks first
