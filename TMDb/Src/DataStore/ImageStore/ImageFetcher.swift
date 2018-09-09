@@ -85,6 +85,7 @@ class ImageFetcher {
           else {
             // File don't exits and operation is not in progresss. Add operation ASAP!
             print("Getting image from network:\(imageId)")
+            print("Operation Started, operations:\(String(describing: weakSelf.operationQueue.operations.count)) | for :\(index)")
             // Create the completion handler
             let imageOperationHandler = weakSelf.getCompletionHandler(width: width, index: index, fileName: imageId)
             // Create the operation
@@ -189,12 +190,12 @@ class ImageFetcher {
   
   /// Cancels the opertaion that is downloading the image for `imageInfo`
   ///
-  /// - Parameter imageInfo: model for which operation needs to be cancelled
-  func cancelImageLoadingFor(imageInfo: ImageInfo) {
+  /// - Parameter imageId: image id for which operation needs to be cancelled
+  func cancelImageLoadingFor(imageId: String) {
     self.serialDispatchQueue.async { [weak self] in
-      if let operation = self?.operationsInProgress[imageInfo.id] {
+      if let operation = self?.operationsInProgress[imageId] {
         operation.cancel()
-        self?.operationsInProgress.removeValue(forKey: imageInfo.id)
+        self?.operationsInProgress.removeValue(forKey: imageId)
       }
     }
   }

@@ -23,14 +23,21 @@ class MovieListViewController: UIViewController {
   /// Image fetcher to fetch the images asyncronously
   let imageFetcher = ImageFetcher(concurrentOperations: 3, cacheImageCount: 50)
   
+  /// Indicates that more data can be loaded
+  private var canLoadMore = false
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.rowHeight = UITableViewAutomaticDimension
     self.tableView.estimatedRowHeight = UITableViewAutomaticDimension
+    
+    // Set the load more boolean
+    self.canLoadMore = currentPage < totalPages
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+    imageFetcher.clearCache()
   }
 }
 
@@ -73,8 +80,17 @@ extension MovieListViewController: UITableViewDataSource {
         }
       }
     }
-    
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    // Cell is removed from the table view, cancel in progress requests for data for the specified index paths
+    print("did end cell: \(indexPath.row)")
+    // This method gets called when we reload data
+    if self.movieArray.count > indexPath.row {
+      let movie = self.movieArray[indexPath.row]
+      self.imageFetcher.cancelImageLoadingFor(imageId: movie.posterLastPathComponent)
+    }
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
