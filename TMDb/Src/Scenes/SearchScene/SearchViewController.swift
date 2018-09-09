@@ -154,7 +154,16 @@ extension SearchViewController: UISearchBarDelegate {
   
   // Cancel tapped
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.text = ""
     searchBar.resignFirstResponder()
+  }
+}
+
+// MARK:- UITableViewDataSource
+extension SearchViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // Tell the interactor to search the movies
+    self.interactor.fetchPreviousSearchList(text: self.previousSearchedMovies[indexPath.row])
   }
 }
 

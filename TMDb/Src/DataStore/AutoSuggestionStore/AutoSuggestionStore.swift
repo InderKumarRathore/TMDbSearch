@@ -50,12 +50,23 @@ class AutoSuggestionStore: AutoSuggestionStoreProtocol {
   /// - Parameter text: text to be saved
   func saveSearch(text: String) {
     if var array = UserDefaults.standard.object(forKey: key) as? [String] {
-      // There is already array append to it and remove the first object if count > 10
+      // Check if searched item already exists in the list
+      for i in 0..<array.count {
+        let movieName = array[i]
+        if movieName.caseInsensitiveCompare(text) == .orderedSame {
+          // Remove the object at this index
+          array.remove(at: i)
+          break
+        }
+      }
+      
+      // Append to array and remove the first object if count >= 10
       if array.count >= 10 {
         array.remove(at: 0)
       }
       // Add the latest search
       array.append(text)
+      
       // Save the search
       UserDefaults.standard.set(array, forKey: self.key)
     }
