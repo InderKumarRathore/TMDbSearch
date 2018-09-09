@@ -91,9 +91,7 @@ class SearchViewController: UIViewController {
     if segue.identifier == self.movieListViewControllerSegue {
       if let movieResult = sender as? MovieResult {
         if let mvc = segue.destination as? MovieListViewController {
-          mvc.movieArray = movieResult.movies
-          mvc.currentPage = movieResult.currentPage
-          mvc.totalPages = movieResult.totalPages
+          mvc.movieResult = movieResult
         }
       }
     }
@@ -156,6 +154,8 @@ extension SearchViewController: UISearchBarDelegate {
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchBar.text = ""
     searchBar.resignFirstResponder()
+    // Tell the interactor to show all movies
+    self.interactor.fetchPreviousSearchList(text: searchBar.text)
   }
 }
 
@@ -163,7 +163,7 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     // Tell the interactor to search the movies
-    self.interactor.fetchPreviousSearchList(text: self.previousSearchedMovies[indexPath.row])
+    self.interactor.searchMovies(text: self.previousSearchedMovies[indexPath.row])
   }
 }
 

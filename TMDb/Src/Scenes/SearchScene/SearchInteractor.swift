@@ -73,7 +73,7 @@ extension SearchInteractor: SearchBusinessLogic {
                             // Save the search text
                             self.autoSuggestionStore.saveSearch(text: text)
                             // Tell the presenter to show the movie list vc
-                            self.presenter?.presentMovies(movies: movies, currentPage: currentPage, totalPages: totalPages)
+                            self.presenter?.presentMovies(movies: movies, currentPage: currentPage, totalPages: totalPages, searchText: text)
     }) { (statusCode, error) in
       // Tell the presenter to hide the loader
       self.presenter?.hideLoader()

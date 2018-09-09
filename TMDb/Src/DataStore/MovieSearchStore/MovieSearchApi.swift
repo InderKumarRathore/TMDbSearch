@@ -47,10 +47,11 @@ class MovieSearchApi {
                     var movieArray = [MovieServiceObject]()
                     
                     for movie in movies {
-                      if let title = movie["title"] as? String,
-                        let posterPath = movie["poster_path"] as? String,
-                        let overview = movie["overview"] as? String,
-                        let releaseDate = movie["release_date"] as? String {
+                      if let title = movie["title"] as? String {
+                        let posterPath = movie["poster_path"] as? String
+                        let overview = movie["overview"] as? String
+                        let releaseDate = movie["release_date"] as? String
+                        
                         let movieModel = MovieServiceObject(title: title, posterPath: posterPath, overview: overview, releaseDate: releaseDate)
                         movieArray.append(movieModel)
                       }

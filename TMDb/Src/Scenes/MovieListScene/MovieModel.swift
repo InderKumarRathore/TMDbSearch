@@ -10,23 +10,16 @@ import UIKit
 
 struct MovieServiceObject {
   let title: String
-  let posterPath: String
-  let overview: String
-  let releaseDate: String
+  let posterPath: String?
+  let overview: String?
+  let releaseDate: String?
 }
 
 struct MovieViewModel {
   let title: String
   let overview: String
   let releaseDate: String
-  let posterLastPathComponent: String
-  
-  init(title: String, overview: String, releaseDate: String, posterPath: String) {
-    self.title = title
-    self.overview = overview
-    self.releaseDate = releaseDate
-    self.posterLastPathComponent = posterPath
-  }
+  let posterLastPathComponent: String?
 
   
   /// Gets the url for the poster image
@@ -34,8 +27,11 @@ struct MovieViewModel {
   /// - Parameter width: width for the image
   /// - Returns: URL for the poster
   func getPosterUrl(width: CGFloat) -> URL? {
+    guard let posterPath = self.posterLastPathComponent else {
+      return nil
+    }
     let size = getPosterSize(width: width)
-    let urlStr = "http://image.tmdb.org/t/p/\(size)\(posterLastPathComponent)"
+    let urlStr = "http://image.tmdb.org/t/p/\(size)\(posterPath)"
     return URL(string: urlStr)
   }
   
@@ -52,11 +48,14 @@ struct MovieViewModel {
   ///   - dirPath: directory path where the file needs to be saved or picked
   /// - Returns: disk url for the image
   func getDiskUrl(width: CGFloat, dirPath: String) -> URL? {
+    guard let posterPath = self.posterLastPathComponent else {
+      return nil
+    }
     let size = getPosterSize(width: width)
     let tmdbDir = "TMDB"
     let fullDirPath = "\(dirPath)\(tmdbDir)/\(size)"
     try? FileManager.default.createDirectory(atPath: fullDirPath, withIntermediateDirectories: true, attributes: nil)
-    return URL(fileURLWithPath: "\(fullDirPath)\(self.posterLastPathComponent)")
+    return URL(fileURLWithPath: "\(fullDirPath)\(posterPath)")
   }
   
   
@@ -86,6 +85,7 @@ struct MovieResult {
   let movies: [MovieViewModel]
   let currentPage: Int
   let totalPages: Int
+  let searchText: String
 }
 
 

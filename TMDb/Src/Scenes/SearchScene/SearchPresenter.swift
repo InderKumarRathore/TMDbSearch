@@ -23,7 +23,8 @@ protocol SearchPresentationLogic {
   ///   - movies: list of movies
   ///   - currentPage: current page
   ///   - totalPages: total pages
-  func presentMovies(movies: [MovieServiceObject], currentPage: Int, totalPages: Int)
+  ///   - searchText: searched text
+  func presentMovies(movies: [MovieServiceObject], currentPage: Int, totalPages: Int, searchText: String)
   
   /// Shows the error
   ///
@@ -53,7 +54,7 @@ extension SearchPresenter: SearchPresentationLogic {
     }
   }
   
-  func presentMovies(movies: [MovieServiceObject], currentPage: Int, totalPages: Int) {
+  func presentMovies(movies: [MovieServiceObject], currentPage: Int, totalPages: Int, searchText: String) {
     // Convert the raw movie object into displaybale object
     var movieArray = [MovieViewModel]()
     
@@ -67,17 +68,19 @@ extension SearchPresenter: SearchPresentationLogic {
     for movieSO in movies {
       // Create the display date
       var dateStr = "NA"
-      if let date = fromFormatter.date(from: movieSO.releaseDate) {
-        dateStr = toFormatter.string(from: date)
+      if let releaseDate = movieSO.releaseDate {
+        if let date = fromFormatter.date(from: releaseDate) {
+          dateStr = toFormatter.string(from: date)
+        }
       }
       
       let movieViewModel = MovieViewModel(title: movieSO.title,
-                                          overview: movieSO.overview,
+                                          overview: movieSO.overview ?? "",
                                           releaseDate: dateStr,
-                                          posterPath: movieSO.posterPath)
+                                          posterLastPathComponent: movieSO.posterPath)
       movieArray.append(movieViewModel)
     }
-    let movieResult = MovieResult(movies: movieArray, currentPage: currentPage, totalPages: totalPages)
+    let movieResult = MovieResult(movies: movieArray, currentPage: currentPage, totalPages: totalPages, searchText: searchText)
     DispatchQueue.main.async {
       self.viewController?.showMovieList(movieResult: movieResult)
     }
